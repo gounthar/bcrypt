@@ -18,6 +18,16 @@ jobs:
 
       - uses: dtolnay/rust-toolchain@stable
 
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            src/_bcrypt/target/
+          key: riscv64-cargo-${{ hashFiles('src/_bcrypt/Cargo.lock') }}
+          restore-keys: riscv64-cargo-
+
       - name: Install Python tooling
         run: /opt/python-3.12/bin/python3.12 -m pip install --user nox uv
 
