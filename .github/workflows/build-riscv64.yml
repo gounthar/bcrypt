@@ -18,6 +18,10 @@ jobs:
 
       - uses: dtolnay/rust-toolchain@stable
 
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
       - uses: actions/cache@v4
         with:
           path: |
@@ -29,11 +33,9 @@ jobs:
           restore-keys: riscv64-cargo-
 
       - name: Install Python tooling
-        run: /opt/python-3.12/bin/python3.12 -m pip install --user nox uv
+        run: pip install nox uv
 
       - name: Run tests (timed)
-        run: |
-          export PATH="$HOME/.local/bin:$PATH"
-          time nox -s tests -v
+        run: time nox -s tests -v
         env:
           CARGO_TARGET_DIR: ${{ github.workspace }}/src/_bcrypt/target/
