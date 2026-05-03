@@ -33,7 +33,7 @@ jobs:
           restore-keys: riscv64-cargo-
 
       - name: Install Python tooling
-        run: pip install nox uv
+        run: python -m pip install nox uv
 
       - name: Run tests (timed)
         run: time nox -s tests -v
